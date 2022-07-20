@@ -1,7 +1,7 @@
 import { userRepository } from "../repositories/userRepository.js"
-import { userData } from "../services/usersService.js"
+import { createUser } from "../services/usersService.js"
 
-export async function createAccount(body: userData) {
+export async function createAccount(body: createUser) {
     const insertUser = await userRepository.userSignUp(
         body.email,
         body.password

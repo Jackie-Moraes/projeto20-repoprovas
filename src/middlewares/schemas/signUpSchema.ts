@@ -1,10 +1,11 @@
 import joi from "joi"
 
-import { userData } from "../../services/usersService.js"
+import { createUser } from "../../services/usersService.js"
 
-const signUpSchema = joi.object<userData>({
+const signUpSchema = joi.object<createUser>({
     email: joi.string().email().required(),
-    password: joi.string().min(10).required(),
+    password: joi.string().required(),
+    passwordConfirmation: joi.ref("password"),
 })
 
 export default signUpSchema

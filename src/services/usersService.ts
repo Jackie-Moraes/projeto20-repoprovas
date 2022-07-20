@@ -7,8 +7,13 @@ import { validatePassword } from "../utils/validatePassword.js"
 import { createAndSendToken } from "../utils/createAndSendToken.js"
 
 export type userData = Omit<users, "id">
+export type createUser = {
+    email: string
+    password: string
+    passwordConfirmation: string
+}
 
-async function userSignUp(body: userData) {
+async function userSignUp(body: createUser) {
     await ensureEmailIsNotInUse(body.email)
 
     await createAccount(body)
