@@ -4,10 +4,6 @@ import app from "../src/app.js"
 import { client } from "../src/config/database.js"
 import { createUser, userTemplate } from "./factories/userFactory.js"
 
-beforeEach(async () => {
-    await client.$executeRaw`TRUNCATE TABLE users, sessions`
-})
-
 describe("POST /sign-up", () => {
     it("should answer status 201 when valid information is sent", async () => {
         const body = userTemplate()
@@ -23,7 +19,9 @@ describe("POST /sign-up", () => {
 
     it("should answer status 409 when email is already in use", async () => {
         const repeatUser = await createUser()
-        const response = await supertest(app).post("/sign-up").send(repeatUser)
+        const response = await supertest(app)
+            .post("/sign-up")
+            .send({ email: repeatUser.email, password: repeatUser.password })
         expect(response.status).toBe(409)
     })
 })
@@ -31,7 +29,9 @@ describe("POST /sign-up", () => {
 describe("POST /sign-in", () => {
     it("should return 200 when credentials are valid", async () => {
         const user = await createUser()
-        const response = await supertest(app).post("/sign-in").send(user)
+        const response = await supertest(app)
+            .post("/sign-in")
+            .send({ email: user.email, password: user.password })
         expect(response.status).toBe(200)
     })
 

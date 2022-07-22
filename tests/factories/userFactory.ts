@@ -9,14 +9,14 @@ export async function createUser() {
         password: faker.internet.password(),
     }
 
-    await client.users.create({
+    const insertedUser = await client.users.create({
         data: {
             email: user.email,
             password: bcrypt.hashSync(user.password, 10),
         },
     })
 
-    return user
+    return { id: insertedUser.id, email: user.email, password: user.password }
 }
 
 export const userTemplate = () => {

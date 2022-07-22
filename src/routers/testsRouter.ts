@@ -13,7 +13,7 @@ import {
 const testsRouter = Router()
 
 testsRouter.post("/tests", validateTest, validateToken, createTest)
-testsRouter.get("/teststerms", validateToken, getTestsByTerm)
-testsRouter.get("/teststeachers", validateToken, getTestsByTeacher)
+testsRouter.get("/tests/terms", validateToken, getTestsByTerm)
+testsRouter.get("/tests/teachers", validateToken, getTestsByTeacher)
 
 export default testsRouter
