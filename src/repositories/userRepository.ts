@@ -37,7 +37,6 @@ async function checkTokenOwnership(name: string) {
             name,
         },
     })
-    console.log(exists)
     return exists
 }
 

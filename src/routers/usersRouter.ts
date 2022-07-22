@@ -8,7 +8,7 @@ import { signIn, signUp } from "../controllers/usersController.js"
 
 const usersRouter = Router()
 
-usersRouter.post("/signup", validateSignUp, signUp)
-usersRouter.post("/signin", validateSignIn, signIn)
+usersRouter.post("/sign-up", validateSignUp, signUp)
+usersRouter.post("/sign-in", validateSignIn, signIn)
 
 export default usersRouter
