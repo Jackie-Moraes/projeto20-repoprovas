@@ -1,7 +1,6 @@
 import supertest from "supertest"
 
 import app from "../src/app.js"
-import { client } from "../src/config/database.js"
 import { createUser, userTemplate } from "./factories/userFactory.js"
 
 describe("POST /sign-up", () => {
@@ -19,9 +18,11 @@ describe("POST /sign-up", () => {
 
     it("should answer status 409 when email is already in use", async () => {
         const repeatUser = await createUser()
-        const response = await supertest(app)
-            .post("/sign-up")
-            .send({ email: repeatUser.email, password: repeatUser.password })
+        const response = await supertest(app).post("/sign-up").send({
+            email: repeatUser.email,
+            password: repeatUser.password,
+            passwordConfirmation: repeatUser.password,
+        })
         expect(response.status).toBe(409)
     })
 })
@@ -29,11 +30,11 @@ describe("POST /sign-up", () => {
 describe("POST /sign-in", () => {
     it("should return 200 when credentials are valid", async () => {
         const user = await createUser()
-        const response = await supertest(app).post("/sign-in").send({
+        const body = {
             email: user.email,
             password: user.password,
-            passwordConfirmation: user.password,
-        })
+        }
+        const response = await supertest(app).post("/sign-in").send(body)
         expect(response.status).toBe(200)
     })
 

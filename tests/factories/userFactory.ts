@@ -6,7 +6,7 @@ import { client } from "../../src/config/database.js"
 export async function createUser() {
     const user = {
         email: faker.internet.email(),
-        password: faker.internet.password(),
+        password: faker.internet.password().toString(),
     }
 
     const insertedUser = await client.users.create({
@@ -19,7 +19,7 @@ export async function createUser() {
     return {
         id: insertedUser.id,
         email: user.email,
-        password: user.password.toString(),
+        password: user.password,
     }
 }
 
