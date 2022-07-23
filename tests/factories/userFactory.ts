@@ -16,7 +16,11 @@ export async function createUser() {
         },
     })
 
-    return { id: insertedUser.id, email: user.email, password: user.password }
+    return {
+        id: insertedUser.id,
+        email: user.email,
+        password: user.password.toString(),
+    }
 }
 
 export const userTemplate = () => {

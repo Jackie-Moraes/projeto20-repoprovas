@@ -29,9 +29,11 @@ describe("POST /sign-up", () => {
 describe("POST /sign-in", () => {
     it("should return 200 when credentials are valid", async () => {
         const user = await createUser()
-        const response = await supertest(app)
-            .post("/sign-in")
-            .send({ email: user.email, password: user.password })
+        const response = await supertest(app).post("/sign-in").send({
+            email: user.email,
+            password: user.password,
+            passwordConfirmation: user.password,
+        })
         expect(response.status).toBe(200)
     })
 
